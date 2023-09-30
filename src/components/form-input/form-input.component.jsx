@@ -6,7 +6,10 @@ const FormInput = ({ label, ...otherProps }) => {
     return (
         <div className="group">
             {label && (
-                <label className={`${otherProps.value.length ? 'shrink' : ''} form-input-label`}>{label}</label>)}
+                <label className={`${otherProps.value.length ? 'shrink' : ''} 
+                form-input-label`}>{label}
+                </label>
+            )}
             <input className="form-input" {...otherProps} />
         </div>
 
@@ -14,3 +17,4 @@ const FormInput = ({ label, ...otherProps }) => {
 }
 
 export default FormInput;
+
