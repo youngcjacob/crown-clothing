@@ -1,39 +1,49 @@
 import './checkout.styles.scss'
 
-import { useContext } from 'react' 
+import { useContext } from 'react'
 import { CartContext } from '../../contexts/cart.context'
+
+
+import CheckoutItem from '../../components/checkout-item/checkout-item.component.jsx'
+
 
 const Checkout = () => {
 
-const  { cartItems, addItemToCart, removeItemToCart } = useContext(CartContext)
+    const { cartItems, addItemToCart, removeItemFromCart, cartTotal } = useContext(CartContext)
 
-    return( 
-        <div>
+    return (
+        <div className='checkout-container'>
 
-            <div id='checkout-title'>
-                <div>Product</div>
-                <div>Description</div>
-                <div>Quantity</div>
-                <div>Price</div>
-                <div>Remove</div>
+            <div className='checkout-header'>
+
+                <div className='header-block'>
+                    <span>Product</span></div>
+                <div className='header-block'>
+                    <span>Description</span>
+                </div>
+                <div className='header-block'>
+                    <span>Quantity</span>
+                </div>
+                <div className='header-block'>
+                    <span>Price</span>
+                </div>
+                <div className='header-block'>
+                    <span>Remove</span>
+                </div>
             </div>
 
             <br />
 
             {cartItems.map(cartItem => {
-                const {id, name, quantity, price} = cartItem;
-                return <div key={id}> 
-                    <div>{name}</div>
-                    <div>{quantity}</div>
-                    <div>{price}</div>
-                    <div onClick={()=>addItemToCart(cartItem)}>Increase</div>
-                    <div onClick={()=>removeItemToCart(cartItem)}>Decrease</div> <br />
-
-                </div>
-            }
+                return (
+                    <CheckoutItem key={cartItem.id} cartItem={cartItem} />
                 )
             }
-            
+            )
+            }
+            <span className='total'>Total: ${cartTotal}
+            </span>
+
         </div>
     )
 }

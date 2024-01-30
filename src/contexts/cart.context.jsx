@@ -21,7 +21,6 @@ const addCartItem = (cartItems, productToAdd) => {
 }
 
 const removeCartItem = (cartItems, cartItemToRemove) => {
-    //find the cart item to remove
     const existingCartItem = cartItems.find(
         (cartItem) => cartItem.id === cartItemToRemove.id
     );
@@ -34,9 +33,10 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
             { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem)
     }
-   
-    
-    //if not, return back cart items with reduced quantity
+}
+
+const clearCartItem = (cartItems, cartItemToClear) => {
+    return cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id)
 }
 
 export const CartContext = createContext({
@@ -45,19 +45,30 @@ export const CartContext = createContext({
     cartItems: [],
     addItemToCart: () => { },
     removeItemFromCart: () => { },
-    cartCount: 0
+    clearItemFromCart: () => {},
+    cartCount: 0,
+    cartTotal: 0
 })
 
 export const CartProvider = ({ children }) => {
     const [isCartOpen, setIsCartOpen] = useState(false)
     const [cartItems, setCartItems] = useState([]);
     const [cartCount, setCartCount ] = useState(0);
+    const [cartTotal, setCartTotal ] = useState(0);
 
+    //useEffect should govern just one responsibility. similar to a function
     useEffect(() =>{
         const newCartCount = cartItems.reduce((total, cartItem) => 
             total + cartItem.quantity, 0)
              setCartCount(newCartCount);
     }, [cartItems])
+
+    useEffect(() =>{
+        const newCartTotal = cartItems.reduce((total, cartItem) => 
+            total + cartItem.quantity*cartItem.price, 0)
+             setCartTotal(newCartTotal);
+    }, [cartItems])
+
 
     //a function that triggers when a customer clicks on add to cart
     const addItemToCart = (productToAdd) => {
@@ -68,7 +79,11 @@ export const CartProvider = ({ children }) => {
         setCartItems(removeCartItem(cartItems, cartItemToRemove))
     }
 
-    const value = { isCartOpen, setIsCartOpen, addItemToCart, removeItemToCart, cartItems, cartCount }
+    const clearItemFromCart = (cartItemToClear) => {
+        setCartItems(clearCartItem(cartItems, cartItemToClear))
+    }
+
+    const value = { isCartOpen, setIsCartOpen, addItemToCart, removeItemToCart, clearItemFromCart, cartItems, cartCount, cartTotal }
 
     return (
         <CartContext.Provider value={value}>{children} </CartContext.Provider>
