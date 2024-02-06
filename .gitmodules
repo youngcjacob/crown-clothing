@@ -1,3 +1,3 @@
 [submodule "crown-clothing"]
     path = crown-clothing
-    url = https://github.com/youngcjacob/crown-clothing.git
+    url = git@github.com:youngcjacob/crown-clothing.git
