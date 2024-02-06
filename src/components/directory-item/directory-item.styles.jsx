@@ -1,5 +1,7 @@
-.directory-item-container {
-  min-width: 30%;
+import styled from "styled-components";
+
+export const DirectoryItemContainer = styled.div`
+min-width: 30%;
   height: 240px;
   flex: 1 1 auto;
   display: flex;
@@ -34,6 +36,8 @@
     margin-left: 7.5px;
   }
 
+  
+
   .background-image {
     width: 100%;
     height: 100%;
@@ -65,4 +69,8 @@
       font-size: 16px;
     }
   }
-}
+`
+
+// .directory-item-container {
+  
+// }

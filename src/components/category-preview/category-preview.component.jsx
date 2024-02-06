@@ -1,4 +1,4 @@
-import "./category-preview.styles.scss"
+import {CategoryPreviewContainer} from "./category-preview.styles.jsx"
 import ProductCard from "../product-card/product-card.component"
 import { Link } from 'react-router-dom';
 import { Fragment } from "react";
@@ -6,7 +6,8 @@ import { Fragment } from "react";
 const CategoryPreview = ({ title, products }) => {
 
     return (
-        <div className="category-preview-container">
+        <CategoryPreviewContainer>
+        
             <h2>
                 <Link className="title" to={`/shop/${title}`}>
                      {title.toUpperCase()} 
@@ -21,7 +22,7 @@ const CategoryPreview = ({ title, products }) => {
 
             </div>
 
-        </div>
+            </CategoryPreviewContainer>
     )
 
 
