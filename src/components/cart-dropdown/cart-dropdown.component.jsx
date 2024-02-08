@@ -9,9 +9,11 @@ const CartDropdown = () => {
     const { cartItems } = useContext(CartContext)
     const navigate = useNavigate()
 
+    
     const goToCheckoutHandler = () => {
         navigate('/checkout')
     }
+
 
     return (
         <CartDropdownContainer>
